@@ -1,5 +1,5 @@
 
-function tryNewVote() {
+async function tryNewVote() {
     //get variables
     var votersID = document.getElementById("voteID");
     var votersVote = document.getElementById("candidateID");
@@ -7,11 +7,10 @@ function tryNewVote() {
 
     onClickDisable(votersID, votersVote, submitButton);
 
-    key_pair = await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"]);
-
-
-
-
+    var key_pair = await window.crypto.subtle.generateKey({
+        name: "ECDSA",
+        namedCurve: "P-256"
+    }, true, ["sign", "verify"]);
 
     CreateVoteBlock(votersID.value, votersVote.value, block_id, key_pair)
 };
