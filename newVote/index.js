@@ -1,4 +1,3 @@
-const bip39 = require('bip39')
 function tryNewVote() {
     //get variables
     var votersID = document.getElementById("voteID");
