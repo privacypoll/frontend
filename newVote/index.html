@@ -6,7 +6,6 @@
     <script type="text/javascript" src="./main.js"></script>
 
     <title>PrivacyPool</title>
-    <link href="../style.css" rel="stylesheet">
     <meta content="A Blockchain-Based Voting System" name="description">
     <link href="https://privacypool.com/" rel="canonical">
     <meta content="PrivacyPool" property="og:title">
@@ -20,7 +19,7 @@
             Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
             Vote Content: <input type="text" id="candidateID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kieran Lavato"><br><br>
         </div>
-        <button type="button" id="voteCheckButton" value="test">Vote</button>
+        <button onclick="sendInfo()" type="button" id="voteCheckButton" value="test">Vote</button>
     </div>
 
     <div id="qrCodeBox" class="grid-item">
@@ -31,7 +30,7 @@
     </div>
     <div id="keyBox" class="grid-item">
         12-Word Mnemonic Code Generated:<br><br>
-        <div id="qrCode">
+        <div id="keyCode">
             No Words Generated
         </div>
     </div>
