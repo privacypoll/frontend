@@ -4,6 +4,7 @@ async function tryNewVote() {
     var votersID = document.getElementById("voteID");
     var votersVote = document.getElementById("candidateID");
     var submitButton = document.getElementById("voteCheckButton");
+    var wordsGenerated =document.getElementById("keyCode");
 
     onClickDisable(votersID, votersVote, submitButton);
 
@@ -12,7 +13,8 @@ async function tryNewVote() {
         namedCurve: "P-256"
     }, true, ["sign", "verify"]);
 
-    CreateVoteBlock(votersID.value, votersVote.value, block_id, key_pair)
+
+    wordsGenerated.innerText = CreateVoteBlock(votersID.value, votersVote.value, block_id, key_pair);
 };
 //***********************************************
 //this stuff is what you call dumb code
