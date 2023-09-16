@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript" src="main.js"></script>
+
+    <title>PrivacyPool</title>
+    <link href="../style.css" rel="stylesheet">
+    <meta content="A Blockchain-Based Voting System" name="description">
+    <link href="https://privacypool.com/" rel="canonical">
+    <meta content="PrivacyPool" property="og:title">
+    <meta content="A Blockchain-Based Voting System" property="og:description">
+    <meta content="https://privacypool.com/" property="og:url">
+</head>
+<div class="parent">
+    <div id="voteBox" class="grid-item">
+        <label>Register to Vote:</label><br><br>
+        <div id="inputBox">
+            Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false"><br><br>
+        </div>
+        <button type="button" id="voteCheckButton" value="test">Check Vote Status</button>
+    </div>
+
+    <div id="qrCodeBox" class="grid-item">
+        QR Code Generated:<br><br>
+        <div id="qrCode">
+            No QR Code Generated
+        </div>
+    </div>
+    <div id="keyBox" class="grid-item">
+        12-Word Mnemonic Code Generated:<br><br>
+        <div id="qrCode">
+            No Words Generated
+        </div>
+    </div>
+</div>
+</html>
