@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="./style.css" rel="stylesheet">
-    <script src="main.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script src="index.js"></script>
+    <script src="../sendRequest.js" type="module"></script>
 
     <title>PrivacyPool</title>
     <meta content="A Blockchain-Based Voting System" name="description">
@@ -13,25 +14,22 @@
     <meta content="https://privacypool.com/" property="og:url">
 </head>
 <div class="parent">
-    <div id="voteBox" class="grid-item">
+    <div id="inputMessageThing" class="grid-item">
         <label>Verify Your Vote:</label><br><br>
         <div id="inputBox">
+            Identifier <input type="text" id="userIdentifier" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="QWERTYUIOP"><br><br>
             Secret Key: <input type="text" id="secretKey" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="QWERTYUIOP"><br><br>
         </div>
         <button onclick="checkOldVote()" type="button" id="voteCheckButton" value="test">Verify</button>
     </div>
 
-    <div id="statistics" class="grid-item">
-        QR Code Generated:<br><br>
-        <div id="qrCode">
-            No QR Code Generated
-        </div>
+    <div id="statisticsBox" class="grid-item">
+        Current Votes:<br><br>
+        <div id="statistics"></div>
     </div>
-    <div id="keyBox" class="grid-item">
-        12-Word Mnemonic Code Generated:<br><br>
-        <div id="keyCode">
-            No Words Generated
-        </div>
+    <div id="verifyBox" class="grid-item">
+        You are voting for:<br><br>
+        <div id="verifyMessage"></div>
     </div>
 </div>
 </html>

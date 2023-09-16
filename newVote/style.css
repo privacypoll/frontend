@@ -13,7 +13,7 @@ html, button, input, optgroup, select, textarea {
 button, input {
     background-color: darkgrey;
 }
-button:active and button:enabled {
+button:active {
     background-color: grey;
 }
 
