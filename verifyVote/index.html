@@ -14,15 +14,14 @@
 </head>
 <div class="parent">
     <div id="voteBox" class="grid-item">
-        <label>Register to Vote:</label><br><br>
+        <label>Verify Your Vote:</label><br><br>
         <div id="inputBox">
-            Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
-            Vote Content: <input type="text" id="candidateID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kieran Lavato"><br><br>
+            Secret Key: <input type="text" id="secretKey" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="QWERTYUIOP"><br><br>
         </div>
-        <button onclick="tryNewVote()" type="button" id="voteCheckButton" value="test">Vote</button>
+        <button onclick="checkOldVote()" type="button" id="voteCheckButton" value="test">Verify</button>
     </div>
 
-    <div id="qrCodeBox" class="grid-item">
+    <div id="statistics" class="grid-item">
         QR Code Generated:<br><br>
         <div id="qrCode">
             No QR Code Generated
