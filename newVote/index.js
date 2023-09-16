@@ -1,3 +1,4 @@
+
 function tryNewVote() {
     //get variables
     var votersID = document.getElementById("voteID");
@@ -6,12 +7,29 @@ function tryNewVote() {
 
     onClickDisable(votersID, votersVote, submitButton);
 
+    key_pair = await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"]);
 
-}
+
+
+
+
+    CreateVoteBlock(votersID.value, votersVote.value, block_id, key_pair)
+};
 //***********************************************
 //this stuff is what you call dumb code
 function onClickDisable(id,vote,submit) {
     id.disabled = true;
     vote.disabled = true;
     submit.disabled = true;
-}
+};
+
+function getBlockID() {
+    const Http = new XMLHttpRequest();
+    const url='https://jsonplaceholder.typicode.com/posts';
+    Http.open("GET", url);
+    Http.send();
+
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
+};

@@ -1,3 +1,4 @@
+
 function GetEncodedString(input){
     let enc = new TextEncoder();
     return enc.encode(input);
