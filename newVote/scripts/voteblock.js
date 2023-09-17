@@ -1,5 +1,10 @@
-import * as zkp from '@cloudflare/zkp-ecdsa';
-
+async function generateKeyPair() {
+    var keyPair = await window.crypto.subtle.generateKey({
+        name: "ECDSA",
+        namedCurve: "P-256"
+    }, true, ["sign", "verify"]);
+    return (keyPair);
+};
 function GetEncodedString(input){
     let enc = new TextEncoder();
     return enc.encode(input);
