@@ -13,13 +13,24 @@
     <meta content="https://privacypool.com/" property="og:url">
 </head>
 <div class="parent">
-    <div id="voteBox" class="grid-item">
-        <label>Register to Vote:</label><br><br>
-        <div id="inputBox">
-            Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
-            Vote Content: <input type="text" id="candidateID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kieran Lavato"><br><br>
+    <div id="idBox" class="grid-item">
+        <label>Register:</label><br><br>
+        <div id="idInputBox">
+            Vote ID: <input type="text" id="idText" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
         </div>
-        <button onclick="tryNewVote()" type="button" id="voteCheckButton">Vote</button>
+        <button onclick="nextSection()" type="button" id="idButton">Next</button>
     </div>
+
+    <div id="voteBox" class="grid-item">
+        Status: <div id="voteStatusBox"></div>
+        <div id="voteInputBox">
+            <div id="voteA"></div>
+            <div id="voteB"></div>
+            <div id="voteC"></div>
+        </div><br><br>
+        <button onclick="voteSection()" id="voteButton">Vote</button>
+    </div>
+
+    <div id="aboutBox"></div>
 </div>
 </html>
