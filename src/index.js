@@ -17,6 +17,8 @@ export async function tryNewVote() {
     const newKeyPair = generateKeyPair()
 
     savePrivateKey(generateKeyPair())
+
+
 };
 window.tryNewVote = tryNewVote;
 export function savePrivateKey(keyPair) {
