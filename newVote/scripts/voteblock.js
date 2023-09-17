@@ -1,4 +1,4 @@
-import * as zkp from '@cloudflare/zkp-ecdsa';
+//import * as zkp from '@cloudflare/zkp-ecdsa';
 
 function GetEncodedString(input){
     let enc = new TextEncoder();
