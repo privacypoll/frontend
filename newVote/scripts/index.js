@@ -8,21 +8,18 @@ async function tryNewVote() {
 
     onClickDisable(votersID, votersVote, submitButton);
 
-
-
-
     //var keypair = generateKeyPair()
     //wordsGenerated.innerText = CreateVoteBlock(votersID.value, votersVote.value, block_id, keypair);
-
-
 };
 //***********************************************
 //this stuff is what you call dumb code
+
 function onClickDisable(id,vote,submit) {
     id.disabled = true;
     vote.disabled = true;
     submit.disabled = true;
 };
+
 /*
 function generateKeyPair() {
     var key_pair = await window.crypto.subtle.generateKey({
