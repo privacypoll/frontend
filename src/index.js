@@ -22,8 +22,11 @@ window.nextSection = nextSection;
 
 export async function voteSection() {
     //get variables
-    const idText = document.getElementById("");
-    const idButton = document.getElementById("voteButton");
+    const voteRadioA = document.getElementById("a");
+    const voteRadioB = document.getElementById("b");
+    const voteRadioC = document.getElementById("c");
+    const voteButton = document.getElementById("voteButton");
+
 
 
 }
