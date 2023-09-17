@@ -15,27 +15,13 @@
     <meta content="https://privacypool.com/" property="og:url">
 </head>
 <div class="parent">
-
     <div id="voteBox" class="grid-item">
         <label>Register to Vote:</label><br><br>
         <div id="inputBox">
             Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
             Vote Content: <input type="text" id="candidateID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kieran Lavato"><br><br>
         </div>
-        <button onclick="tryNewVote()" type="button" id="voteCheckButton" value="test">Vote</button>
-    </div>
-
-    <div id="qrCodeBox" class="grid-item">
-        QR Code Generated:<br><br>
-        <div id="qrCode">
-            No QR Code Generated
-        </div>
-    </div>
-    <div id="keyBox" class="grid-item">
-        12-Word Mnemonic Code Generated:<br><br>
-        <div id="keyCode">
-            No Words Generated
-        </div>
+        <button onclick="tryNewVote()" type="button" id="voteCheckButton">Vote</button>
     </div>
 </div>
 </html>

@@ -1,15 +1,19 @@
 const url = "http://tjroh01.workers.dev";
+
 async function tryNewVote() {
     //get variables
-    var votersID = document.getElementById("voteID");
-    var votersVote = document.getElementById("candidateID");
-    var submitButton = document.getElementById("voteCheckButton");
-    var wordsGenerated =document.getElementById("keyCode");
+    const votersID = document.getElementById("voteID");
+    const votersVote = document.getElementById("candidateID");
+    const submitButton = document.getElementById("voteCheckButton");
+    const wordsGenerated =document.getElementById("keyCode");
 
     onClickDisable(votersID, votersVote, submitButton);
+    const newKeyPair = generateKeyPair()
 
-    localStorage.setItem("votersVote",votersVote);
-    var newKeyPair = generateKeyPair()
+    savePrivateKey(generateKeyPair())
+};
+function savePrivateKey(keyPair) {
+    localStorage.setItem("keyPair", keyPair);
 };
 
 function onClickDisable(id,vote,submit) {
