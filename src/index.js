@@ -6,30 +6,18 @@ const url = "http://tjroh01.workers.dev";
        INDEX
 *******************/
 
-export async function tryNewVote() {
-    //get variables
-    // onClickDisable(votersID, votersVote, submitButton);
-    const newKeyPair = generateKeyPair()
-
-    savePrivateKey(generateKeyPair())
-
-
-
-    if (localStorage.getItem("storedKey") != newKeyPair) {
-
-    }
-
-};
-window.tryNewVote = tryNewVote;
-
 export async function nextSection() {
     //get variables
     const idText = document.getElementById("idText");
     const idButton = document.getElementById("idButton");
 
-    const newKeyPair = generateKeyPair()
-    savePrivateKey(generateKeyPair())
-}
+    //enable the radios
+    document.getElementById("a").disabled = false;
+    document.getElementById("b").disabled = false;
+    document.getElementById("c").disabled = false;
+
+
+};
 window.nextSection = nextSection;
 
 export async function voteSection() {
