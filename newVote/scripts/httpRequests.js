@@ -4,15 +4,12 @@ async function putInitial(id_0) {
 
 };
 
-async function getInitial(id_0,id_1) {
+async function getInitial(id_0) {
     const url = "http://get-initial.tjroh01.workers.dev";
     fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            "voteId": id_0
-        }),
+        method: "GET",
         headers: {
-            "vote-id":   id_1
+            "vote-id":   id_0
         }
     })
         .then(function (res){ console.log(res)})
