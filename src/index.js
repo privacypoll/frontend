@@ -8,19 +8,39 @@ const url = "http://tjroh01.workers.dev";
 
 export async function tryNewVote() {
     //get variables
-    const votersID = document.getElementById("voteID");
-    const votersVote = document.getElementById("candidateID");
-    const submitButton = document.getElementById("voteCheckButton");
-    const wordsGenerated =document.getElementById("keyCode");
-
-    onClickDisable(votersID, votersVote, submitButton);
+    // onClickDisable(votersID, votersVote, submitButton);
     const newKeyPair = generateKeyPair()
 
     savePrivateKey(generateKeyPair())
 
 
+
+    if (localStorage.getItem("storedKey") != newKeyPair) {
+
+    }
+
 };
 window.tryNewVote = tryNewVote;
+
+export async function nextSection() {
+    //get variables
+    const idText = document.getElementById("idText");
+    const idButton = document.getElementById("idButton");
+
+    const newKeyPair = generateKeyPair()
+    savePrivateKey(generateKeyPair())
+}
+window.nextSection = nextSection;
+
+export async function voteSection() {
+    //get variables
+    const idText = document.getElementById("");
+    const idButton = document.getElementById("voteButton");
+
+
+}
+window.voteSection = voteSection;
+
 export function savePrivateKey(keyPair) {
     localStorage.setItem("keyPair", keyPair);
 };

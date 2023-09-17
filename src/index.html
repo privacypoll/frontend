@@ -22,22 +22,23 @@
     </div>
 
     <div id="voteBox" class="grid-item">
-        Status: <div id="voteStatusBox"></div>
+        Status: <div id="voteStatusBox"></div><br>
+        Your vote: <div id="voterVoteBox"></div>
         <div id="voteInputBox">
             <div id="voteA"></div>
             <div id="voteB"></div>
             <div id="voteC"></div>
             <br><br>
-            <input type="radio" id="a" name="voteString" value="a">
+            <input type="radio" id="a" name="voteString" value="a" disabled="true">
             <label for="a">a</label><br>
 
-            <input type="radio" id="b" name="voteString" value="b">
+            <input type="radio" id="b" name="voteString" value="b" disabled="true">
             <label for="b">b</label><br>
 
-            <input type="radio" id="c" name="voteString" value="c">
+            <input type="radio" id="c" name="voteString" value="c" disabled="true">
             <label for="c">c</label><br>
         </div><br><br>
-        <button onclick="voteSection()" id="voteButton">Vote</button>
+        <button onclick="voteSection()" id="voteButton" disabled="true">Vote</button>
     </div>
 
     <div id="aboutBox">
