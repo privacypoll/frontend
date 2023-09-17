@@ -1,31 +1,23 @@
 const url = "http://tjroh01.workers.dev";
+
 async function tryNewVote() {
     //get variables
-    var votersID = document.getElementById("voteID");
-    var votersVote = document.getElementById("candidateID");
-    var submitButton = document.getElementById("voteCheckButton");
-    var wordsGenerated =document.getElementById("keyCode");
+    const votersID = document.getElementById("voteID");
+    const votersVote = document.getElementById("candidateID");
+    const submitButton = document.getElementById("voteCheckButton");
+    const wordsGenerated =document.getElementById("keyCode");
 
     onClickDisable(votersID, votersVote, submitButton);
+    const newKeyPair = generateKeyPair()
 
-    //var keypair = generateKeyPair()
-    //wordsGenerated.innerText = CreateVoteBlock(votersID.value, votersVote.value, block_id, keypair);
+    savePrivateKey(generateKeyPair())
 };
-//***********************************************
-//this stuff is what you call dumb code
+function savePrivateKey(keyPair) {
+    localStorage.setItem("keyPair", keyPair);
+};
 
 function onClickDisable(id,vote,submit) {
     id.disabled = true;
     vote.disabled = true;
     submit.disabled = true;
 };
-
-/*
-function generateKeyPair() {
-    var key_pair = await window.crypto.subtle.generateKey({
-        name: "ECDSA",
-        namedCurve: "P-256"
-    }, true, ["sign", "verify"]);
-    return (key_pair);
-};
-*/

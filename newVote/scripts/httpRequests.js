@@ -15,7 +15,7 @@ async function putIdentity(voteId, identityString){
     return fetch(url, {
         method: "POST",
         headers: { "vote-id": voteId },
-        body: {publicKey: pubKey, identityString: identityString}
+        body: JSON.stringify({publicKey: pubKey, identityString: identityString})
     }).then(res => {return res.json()})
         .catch(function(res) {console.log(res)})
 }
