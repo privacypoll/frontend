@@ -1,4 +1,4 @@
-
+const url = "http://tjroh01.workers.dev";
 async function tryNewVote() {
     //get variables
     var votersID = document.getElementById("voteID");
@@ -8,15 +8,13 @@ async function tryNewVote() {
 
     onClickDisable(votersID, votersVote, submitButton);
 
-    var key_pair = await window.crypto.subtle.generateKey({
-        name: "ECDSA",
-        namedCurve: "P-256"
-    }, true, ["sign", "verify"]);
 
 
 
+    //var keypair = generateKeyPair()
+    //wordsGenerated.innerText = CreateVoteBlock(votersID.value, votersVote.value, block_id, keypair);
 
-    wordsGenerated.innerText = CreateVoteBlock(votersID.value, votersVote.value, block_id, generateKeyPair());
+
 };
 //***********************************************
 //this stuff is what you call dumb code
@@ -25,22 +23,12 @@ function onClickDisable(id,vote,submit) {
     vote.disabled = true;
     submit.disabled = true;
 };
-
+/*
 function generateKeyPair() {
     var key_pair = await window.crypto.subtle.generateKey({
         name: "ECDSA",
         namedCurve: "P-256"
     }, true, ["sign", "verify"]);
     return (key_pair);
-}
-
-function getBlockID() {
-    const Http = new XMLHttpRequest();
-    const url='https://jsonplaceholder.typicode.com/posts';
-    Http.open("GET", url);
-    Http.send();
-
-    Http.onreadystatechange = (e) => {
-        console.log(Http.responseText)
-    }
 };
+*/
