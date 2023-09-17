@@ -1,4 +1,4 @@
-async function putInitial(id_0) {
+async function putInitial() {
     const url = "https://get-initial.tjroh01.workers.dev";
     fetch(url, {
         method: "POST",
@@ -7,7 +7,9 @@ async function putInitial(id_0) {
             b: "b",
             c: "c"
         })
-    })
+    }).then(function(res){console.log(res)})
+        .catch(function(res){console.log(res)})
+
 };
 
 async function getInitial(id_0) {
