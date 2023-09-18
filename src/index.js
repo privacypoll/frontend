@@ -60,31 +60,47 @@ window.putInitial = putInitial;
 
 export async function putIdentity(voteId, identityString){
     const url = "https://put-identity.tjroh01.workers.dev";
-    window.localStorage.setItem("userKey", await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256",}, true, ["sign", "verify"]))
-    let usersKey = window.localStorage.getItem("userKey");
-    const pubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", usersKey.publicKey)));
+    
+    // Generate the key pair
+    const userKeyPair = await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256"}, true, ["sign", "verify"])
+    
+    // For some reason it doesn't want to just cache the key pair so I have to cache them seperate
+    window.localStorage.setItem("userPubKey", userKeyPair.publicKey);
+    window.localStorage.setItem("userPrivKey", userKeyPair.privateKey);
+
+    // Export the public key
+    const exportedKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", userKeyPair.publicKey)));
+
+    // Create and append the header
     const headers = new Headers();
     headers.append("vote-id", voteId.toString())
 
-    console.log(JSON.parse(JSON.stringify({publicKey: pubKey, identityString: identityString})))
+    // Send the request
     return fetch(url, {
         method: "POST",
         headers: headers,
-        body: JSON.stringify({publicKey: pubKey, identityString: identityString})
+        body: JSON.stringify({publicKey: exportedKey, identityString: identityString})
     }).then(function(res){console.log(res)})
-        .catch(function(res) {console.log(res)})
+        .catch(function(res){console.log(res)})
 }
 window.putIdentity = putIdentity;
 
-export async function putBlock(voteId, vote, keyPair, keyRing, lastBlockId){
-    let usersKey= localStorage.getItem("userKey");
+export async function putBlock(voteId, vote, keyRing, lastBlockId){
     const url = "https://put-block.tjroh01.workers.dev";
-    //const pubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", keyPair.publicKey)));
+
+    // Get the keys from cache
+    //let userPubKey = localStorage.getItem("userPubKey");
+    //let userPrivKey = localStorage.getItem("userPrivKey");
+    //const exportedPubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", keyPair.publicKey)));
+
+    // Create and append the header
     const headers = new Headers();
     headers.append("vote-id", voteId.toString())
 
-    let newBlock = await CreateVoteBlock(voteId, vote, lastBlockId + 1, usersKey.publicKey, keyRing);
+    // Create the new block
+    let newBlock = await CreateVoteBlock(voteId, vote, lastBlockId + 1, keyRing);
 
+    // Send
     return fetch(url, {
         method: "POST",
         headers: headers,
@@ -141,37 +157,53 @@ window.getKeyRing = getKeyRing;
      VOTE BLOCK
 *******************/
 
-export async function CreateVoteBlock(voteId, vote, blockId, userKeyPair, keyRing){
+export async function CreateVoteBlock(voteId, vote, blockId, keyRing){
+    const userPubKey = window.localStorage.getItem("userPubKey");
+    const userPrivKey = window.localStorage.getItem("userPrivKey");
+    console.log("entered CreateVoteBlock");
 
-    let userKeyIndex;
+    console.log("User's public key: " + userPubKey);
 
-    let pubKeyInt = await zkp.keyToInt(userKeyPair.publicKey);
-    for(let i = 1; i < keyRing.length; i++){ // Check for the key in the ring
-        if(pubKeyInt === keyRing[i]){
-            userKeyIndex = i;
+    console.log("Changing to int...");
+    let pubKeyInt = await zkp.keyToInt(userPubKey); // Turn the key to and int || THIS IS CAUSING AN ERROR FOR SOME REASON
+    console.log("Public key as an int: " + pubKeyInt);
+
+    console.log("Finding key...");
+    let userKeyIndex = null;
+    for(let i = 0; i < keyRing.length; i++){ // Loop through the key ring
+        if(pubKeyInt === keyRing[i]){ // If the key matches,
+            userKeyIndex = i; // Log the index of it
             break;
         }
     }
+    if(userKeyIndex === null){ // If the key was not in the key ring
+        console.log("Failed to find the key in the key ring");
+        return null; // Return null to mark a fail
+    }else{
+        console.log("user key " + keyRing[userKeyIndex] + " found at " + userKeyIndex);
+    }
 
-    console.log("user key " + keyRing[userKeyIndex] + " found at " + userKeyIndex);
-
-    const idSignature = await window.crypto.subtle.sign( {name: "ECDSA", hash: { name: "SHA-256" } }, userKeyPair.privateKey, new TextEncoder().encode(voteId.toString()));
+    // Create a signature and ZKP of the Vote ID
+    const idSignature = await window.crypto.subtle.sign( {name: "ECDSA", hash: { name: "SHA-256" } }, userPrivKey, new TextEncoder().encode(voteId.toString()));
     const idParams = zkp.generateParamsList();
     const idHash = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(voteId.toString()));
-    const idProof = await zkp.proveSignatureList(idParams, new Uint8Array(idHash), new Uint8Array(idSignature), userKeyPair.publicKey, userKeyIndex, keyRing);
+    const idProof = await zkp.proveSignatureList(idParams, new Uint8Array(idHash), new Uint8Array(idSignature), userPubKey, userKeyIndex, keyRing);
 
+    // Create the block object
     const voteBlock = {
         blockId: blockId,
         vote: vote,
         idProof: idProof
     };
 
+    // Now sign the block and create a ZKP of it
     const blockJson =  JSON.stringify(voteBlock, null, 2); // Create a string of the block
-    const blockSig = await window.crypto.subtle.sign( {name: "ECDSA", hash: { name: "SHA-256" } }, userKeyPair.privateKey, new TextEncoder().encode(blockJson));
+    const blockSig = await window.crypto.subtle.sign( {name: "ECDSA", hash: { name: "SHA-256" } }, userPrivKey, new TextEncoder().encode(blockJson));
     const blockParams = zkp.generateParamsList();
     const blockHash = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(blockJson));
-    const blockProof = await zkp.proveSignatureList(blockParams, new Uint8Array(blockHash), new Uint8Array(blockSig), userKeyPair.publicKey, userKeyIndex, keyRing);
+    const blockProof = await zkp.proveSignatureList(blockParams, new Uint8Array(blockHash), new Uint8Array(blockSig), userPubKey, userKeyIndex, keyRing);
 
+    // Return the block and its ZKP
     return {
         voteBlock: voteBlock,
         proof: blockProof,
