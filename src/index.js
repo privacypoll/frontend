@@ -47,8 +47,9 @@ window.putInitial = putInitial;
 
 export async function putIdentity(voteId, identityString){
     const url = "https://put-identity.tjroh01.workers.dev";
-    const keyPair = await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256",}, true, ["sign", "verify"])
-    const pubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", keyPair.publicKey)));
+    window.localStorage.setItem("userKey", await window.crypto.subtle.generateKey({name: "ECDSA", namedCurve: "P-256",}, true, ["sign", "verify"]))
+    let usersKey = window.localStorage.getItem("userKey");
+    const pubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", usersKey.publicKey)));
     const headers = new Headers();
     headers.append("vote-id", voteId.toString())
 
@@ -63,14 +64,13 @@ export async function putIdentity(voteId, identityString){
 window.putIdentity = putIdentity;
 
 export async function putBlock(voteId, vote, keyPair, keyRing, lastBlockId){
+    let usersKey= localStorage.getItem("userKey");
     const url = "https://put-block.tjroh01.workers.dev";
     //const pubKey = btoa(JSON.stringify(await window.crypto.subtle.exportKey("jwk", keyPair.publicKey)));
     const headers = new Headers();
     headers.append("vote-id", voteId.toString())
 
-    console.log(keyRing.keyring);
-
-    let newBlock = await CreateVoteBlock(voteId, vote, lastBlockId + 1, keyPair, keyRing);
+    let newBlock = await CreateVoteBlock(voteId, vote, lastBlockId + 1, usersKey.publicKey, keyRing);
 
     return fetch(url, {
         method: "POST",
@@ -132,8 +132,9 @@ export async function CreateVoteBlock(voteId, vote, blockId, userKeyPair, keyRin
 
     let userKeyIndex;
 
+    let pubKeyInt = await zkp.keyToInt(userKeyPair.publicKey);
     for(let i = 1; i < keyRing.length; i++){ // Check for the key in the ring
-        if(userKeyPair.publicKey === keyRing[i]){
+        if(pubKeyInt === keyRing[i]){
             userKeyIndex = i;
             break;
         }
