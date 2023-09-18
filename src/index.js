@@ -6,19 +6,32 @@ const url = "http://tjroh01.workers.dev";
        INDEX
 *******************/
 
-export async function tryNewVote() {
+export async function nextSection() {
     //get variables
-    const votersID = document.getElementById("voteID");
-    const votersVote = document.getElementById("candidateID");
-    const submitButton = document.getElementById("voteCheckButton");
-    const wordsGenerated =document.getElementById("keyCode");
+    const idText = document.getElementById("idText");
+    const idButton = document.getElementById("idButton");
 
-    onClickDisable(votersID, votersVote, submitButton);
-    const newKeyPair = generateKeyPair()
+    //enable the radios
+    document.getElementById("a").disabled = false;
+    document.getElementById("b").disabled = false;
+    document.getElementById("c").disabled = false;
 
-    savePrivateKey(generateKeyPair())
+
 };
-window.tryNewVote = tryNewVote;
+window.nextSection = nextSection;
+
+export async function voteSection() {
+    //get variables
+    const voteRadioA = document.getElementById("a");
+    const voteRadioB = document.getElementById("b");
+    const voteRadioC = document.getElementById("c");
+    const voteButton = document.getElementById("voteButton");
+
+
+
+}
+window.voteSection = voteSection;
+
 export function savePrivateKey(keyPair) {
     localStorage.setItem("keyPair", keyPair);
 };

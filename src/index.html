@@ -13,13 +13,36 @@
     <meta content="https://privacypool.com/" property="og:url">
 </head>
 <div class="parent">
-    <div id="voteBox" class="grid-item">
-        <label>Register to Vote:</label><br><br>
-        <div id="inputBox">
-            Vote ID: <input type="text" id="voteID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
-            Vote Content: <input type="text" id="candidateID" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kieran Lavato"><br><br>
+    <div id="idBox" class="grid-item">
+        <label>Register:</label><br><br>
+        <div id="idInputBox">
+            Vote ID: <input type="text" id="idText" class="js-only" autofocus="" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0000-000"><br><br>
         </div>
-        <button onclick="tryNewVote()" type="button" id="voteCheckButton">Vote</button>
+        <button type="button" id="idButton">Next</button>
+    </div>
+
+    <div id="voteBox" class="grid-item">
+        Status: <div id="voteStatusBox"></div><br>
+        Your vote: <div id="voterVoteBox"></div>
+        <div id="voteInputBox">
+            <div id="voteA"></div>
+            <div id="voteB"></div>
+            <div id="voteC"></div>
+            <br><br>
+            <input type="radio" id="a" name="voteString" value="a" disabled="true">
+            <label for="a">a</label><br>
+
+            <input type="radio" id="b" name="voteString" value="b" disabled="true">
+            <label for="b">b</label><br>
+
+            <input type="radio" id="c" name="voteString" value="c" disabled="true">
+            <label for="c">c</label><br>
+        </div><br><br>
+        <button onclick="voteSection()" id="voteButton" disabled="true">Vote</button>
+    </div>
+
+    <div id="aboutBox">
+        this shit just sucks
     </div>
 </div>
 </html>
